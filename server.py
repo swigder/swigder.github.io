@@ -2,6 +2,7 @@ from bottle import route, run, template, static_file
 from word_segmentation.bigram_word_segmenter import BigramWordSegmenter
 from word_segmentation.brown_cmu_unigram_provider import BrownCmuUnigramProvider
 from word_segmentation.brown_bigram_provider import BrownBigramProvider
+from weasel.weasel import Weasel
 
 
 unigram_provider = BrownCmuUnigramProvider()
@@ -22,6 +23,11 @@ def callback(filename):
 @route('/segment/<sentence>')
 def segment(sentence='thisisasamplesentence'):
     return template('{{sentence}}....', sentence=" ".join(segmenter.segment_words(sentence)))
+
+
+@route('/weasel/<sentence>')
+def segment(sentence='METHINKS IT IS LIKE A WEASEL'):
+    return dict(data=Weasel(sentence).generate_weasel())
 
 
 run(host='localhost', port=8080, debug=True)
