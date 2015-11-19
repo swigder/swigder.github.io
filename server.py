@@ -25,14 +25,14 @@ def callback(filename):
     return static_file(filename, root='./css')
 
 
-@route('/segment/<sentence>')
+@route("/segment/<sentence:re:[a-zA-Z' ]{,100}>")
 def segment(sentence='thisisasamplesentence'):
     return " ".join(segmenter.segment_words(sentence))
 
 
-@route('/weasel/<sentence>')
+@route('/weasel/<sentence:re:[a-zA-Z ]{,100}>')
 def segment(sentence='METHINKS IT IS LIKE A WEASEL'):
-    return dict(data=Weasel(sentence).generate_weasel())
+    return dict(data=Weasel(sentence.upper()).generate_weasel())
 
 
 run(host='localhost', port=8080, debug=True)
