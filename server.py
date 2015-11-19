@@ -20,9 +20,14 @@ def callback(filename):
     return static_file(filename, root='./js')
 
 
+@route('/css/<filename>')
+def callback(filename):
+    return static_file(filename, root='./css')
+
+
 @route('/segment/<sentence>')
 def segment(sentence='thisisasamplesentence'):
-    return template('{{sentence}}....', sentence=" ".join(segmenter.segment_words(sentence)))
+    return " ".join(segmenter.segment_words(sentence))
 
 
 @route('/weasel/<sentence>')
